@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace XFMapsSample.Frameworks
+namespace XFMapsSample.Frameworks.Behavior
 {
     public class BindableBehavior<T>: Behavior<T> where T : BindableObject
     {

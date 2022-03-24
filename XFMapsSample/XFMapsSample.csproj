@@ -18,7 +18,4 @@
   <ItemGroup>
     <None Remove="Xamarin.Forms.Maps" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
 </Project>

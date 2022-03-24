@@ -9,6 +9,75 @@ using Xamarin.Forms.Maps;
 
 namespace XFMapsSample
 {
+
+    public partial class MainPage: ContentPage
+    {
+        Map map;
+        Polygon msEast;
+        public MainPage()
+        {
+            InitializeComponent();
+
+            //Se declara el mapa
+            map = new Map
+            {
+                IsShowingUser = true
+            };
+
+            //Se declaran los botones y funciones que tendrán:
+            /*
+             1.Botón para marcar inicio de creación de polígono
+                1.a Botón para detener la creación de poligono
+             2.Botón marcar "Listo" creación zona laboral
+             3.Botón eliminar polígono. 
+             */
+            Button polygonButton = new Button
+            {
+                Text = "Crear polígono"
+            };
+            polygonButton.Clicked += AddPolygonsClicked;
+
+            msEast = new Polygon
+            {
+                StrokeColor = Color.FromHex("#1BA1E2"),
+                StrokeWidth = 8,
+                FillColor = Color.FromHex("#881BA1E2"),
+
+            };
+
+            Content = new StackLayout
+            {
+                Children =
+                {
+                    map,
+                    polygonButton
+                }
+
+            };
+
+
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(47.640663, -122.1376177), Distance.FromMiles(1)));
+
+
+            map.MapElements.Add(msEast);
+
+
+        }
+
+        void AddPolygonsClicked(object sender, System.EventArgs e)
+        {
+            map.MapClicked += OnMapClicked;
+        }
+
+        private void OnMapClicked(object sender, MapClickedEventArgs e)
+        {
+            msEast.Geopath.Add(new Position(e.Position.Latitude, e.Position.Longitude));
+            DisplayAlert("Coordenadas", $"Lat:{e.Position.Latitude}, Lon: {e.Position.Longitude}", "Ok");
+        }
+    }
+
+
+    /* Prueba con Maps
     public partial class MainPage : ContentPage
     { 
         Map map;
@@ -63,6 +132,11 @@ namespace XFMapsSample
             DisplayAlert("Coordenadas", $"Lat:{e.Position.Latitude}, Lon: {e.Position.Longitude}", "Ok");
         }
     }
+
+    */
+
+
+
 }
 
 /*using Xamarin.Forms;

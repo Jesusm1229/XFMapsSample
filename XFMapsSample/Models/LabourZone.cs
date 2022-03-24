@@ -20,7 +20,9 @@ namespace XFMapsSample.Models
     //Podría ser que la zona laboral herede de una Lista de poligonos
     public class LabourZone: List<Polygon>
     {
+        public int Id { get; set; }
         public List<Polygon> Polygons => this;
+                
 
         public LabourZone(IEnumerable<Polygon> items)
         {
