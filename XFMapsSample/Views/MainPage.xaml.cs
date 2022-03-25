@@ -1,16 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using XFMapsSample.Frameworks.Behavior;
 
 namespace XFMapsSample
 {
-
     public partial class MainPage: ContentPage
+    {
+        Polygon pg;
+        public MainPage()
+        {
+            InitializeComponent();
+
+            MapView.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(47.640663, -122.1376177), Distance.FromMiles(1)));
+
+            pg = new Polygon
+            {
+                StrokeColor = Color.FromHex("#FF9900"),
+                StrokeWidth = 8,
+                FillColor = Color.FromHex("#88FF9900"),
+            };
+
+        }
+
+        private void CreatePoligon_Clicked(object sender, EventArgs e)
+        {
+            MapView.MapClicked += OnMapClicked;
+        }
+
+        private void DeletePoligon_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void CreateLabourZone_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void OnMapClicked(object sender, MapClickedEventArgs e)
+        {
+           
+            pg.Geopath.Add(new Position(e.Position.Latitude, e.Position.Longitude));
+            DisplayAlert("Coordenadas", $"Lat:{e.Position.Latitude}, Lon: {e.Position.Longitude}", "Ok");
+
+            MapView.MapElements.Add(pg);
+
+                   
+        }
+
+        
+    }
+    
+}
+
+
+
+/*
+ public partial class MainPage: ContentPage
     {
         Map map;
         Polygon msEast;
@@ -30,51 +85,70 @@ namespace XFMapsSample
                 1.a Botón para detener la creación de poligono
              2.Botón marcar "Listo" creación zona laboral
              3.Botón eliminar polígono. 
-             */
-            Button polygonButton = new Button
-            {
-                Text = "Crear polígono"
-            };
-            polygonButton.Clicked += AddPolygonsClicked;
+             
+Button polygonButton = new Button
+{
+    Text = "Crear polígono"
+};
+polygonButton.Clicked += AddPolygonsClicked;
 
-            msEast = new Polygon
-            {
-                StrokeColor = Color.FromHex("#1BA1E2"),
-                StrokeWidth = 8,
-                FillColor = Color.FromHex("#881BA1E2"),
+Button polygon2Button = new Button
+{
+    Text = "Stop polígono"
+};
+polygon2Button.Clicked += StopPolygonsClicked;
 
-            };
 
-            Content = new StackLayout
-            {
-                Children =
+
+
+msEast = new Polygon
+{
+    StrokeColor = Color.FromHex("#1BA1E2"),
+    StrokeWidth = 8,
+    FillColor = Color.FromHex("#881BA1E2"),
+
+};
+
+Content = new StackLayout
+{
+    Children =
                 {
                     map,
-                    polygonButton
+                    polygonButton,
+                    polygon2Button
                 }
 
-            };
+};
 
 
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(47.640663, -122.1376177), Distance.FromMiles(1)));
+map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(47.640663, -122.1376177), Distance.FromMiles(1)));
 
 
-            map.MapElements.Add(msEast);
+map.MapElements.Add(msEast);
+map.Behaviors.Add(new MapBehavior());
 
 
         }
 
         void AddPolygonsClicked(object sender, System.EventArgs e)
-        {
-            map.MapClicked += OnMapClicked;
-        }
+{
 
-        private void OnMapClicked(object sender, MapClickedEventArgs e)
-        {
-            msEast.Geopath.Add(new Position(e.Position.Latitude, e.Position.Longitude));
-            DisplayAlert("Coordenadas", $"Lat:{e.Position.Latitude}, Lon: {e.Position.Longitude}", "Ok");
-        }
-    }
+    map.MapClicked += OnMapClicked;
+
+}
+
+void StopPolygonsClicked(object sender, System.EventArgs e)
+{
+    map.MapClicked -= OnMapClicked;
+}
+
+private void OnMapClicked(object sender, MapClickedEventArgs e)
+{
+    msEast.Geopath.Add(new Position(e.Position.Latitude, e.Position.Longitude));
+    DisplayAlert("Coordenadas", $"Lat:{e.Position.Latitude}, Lon: {e.Position.Longitude}", "Ok");
+}
+
+*/
 
 
     /* Prueba con Maps
@@ -133,11 +207,11 @@ namespace XFMapsSample
         }
     }
 
-    */
+    
 
 
 
-}
+}*/
 
 /*using Xamarin.Forms;
 using Xamarin.Forms.Maps;

@@ -5,7 +5,25 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="XFMapsSample.MainPage">
+             x:Class="XFMapsSample.MainPage"
+             xmlns:viewmodels="clr-namespace:XFMapsSample.ViewModels;assembly=XFMapsSample"
+             xmlns:behaviors="clr-namespace:XFMapsSample.Frameworks.Behavior;assembly=XFMapsSample"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:MapPageViewModel></viewmodels:MapPageViewModel>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <maps:Map x:Name="MapView" IsShowingUser="True">                     
+            
+            <maps:Map.Behaviors>                
+                <behaviors:MapBehavior ItemsSource="{Binding Items}"></behaviors:MapBehavior>
+            </maps:Map.Behaviors>
+                     
+        </maps:Map>
+        
+        <Button Text="Crear nuevo polígono" Clicked="CreatePoligon_Clicked" />
+        <Button Text="Eliminar Polígono" Clicked="DeletePoligon_Clicked" />
+        <Button Text="Guardar zona laboral" Clicked="CreateLabourZone_Clicked" />
 
-    
+    </StackLayout>
 </ContentPage>
