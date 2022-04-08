@@ -9,11 +9,13 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using XFMapsSample.Frameworks.Behavior;
 
+
 namespace XFMapsSample
 {
     public partial class MainPage: ContentPage
     {
-        Polygon pg;
+        Polygon pg;        
+       
         public MainPage()
         {
             InitializeComponent();
@@ -26,17 +28,19 @@ namespace XFMapsSample
                 StrokeWidth = 8,
                 FillColor = Color.FromHex("#88FF9900"),
             };
-
+           
+                   
         }
 
         private void CreatePoligon_Clicked(object sender, EventArgs e)
         {
             MapView.MapClicked += OnMapClicked;
+                        
         }
 
         private void DeletePoligon_Clicked(object sender, EventArgs e)
         {
-            
+            MapView.MapElements.Remove(pg);
         }
 
         private void CreateLabourZone_Clicked(object sender, EventArgs e)

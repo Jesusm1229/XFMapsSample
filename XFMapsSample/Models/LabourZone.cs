@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+
 
 namespace XFMapsSample.Models
 {
@@ -17,8 +16,8 @@ namespace XFMapsSample.Models
     //    
     //}
 
-    //la zona laboral herede de una Lista de poligonos
-    public class LabourZone: List<Polygon>
+    /*la zona laboral herede de una Lista de poligonos
+      public class LabourZone: List<Polygon>
     {
         public int Id { get; set; }
         public List<Polygon> Polygons => this;
@@ -28,6 +27,24 @@ namespace XFMapsSample.Models
         {
             AddRange(items);
         }
+    }
+    */
+
+
+    public class LabourZone: List<PolygonItem>
+    {
+        public int Id { get; set; }
+
+        public int IdEmpresa { get; set; }
+                      
+        public LabourZone() { }
+        //
+        public LabourZone(IEnumerable<PolygonItem> items)
+        {
+            AddRange(items);
+        }
+
+        public List<PolygonItem> Items => this;
     }
 
     
